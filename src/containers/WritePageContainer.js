@@ -6,6 +6,7 @@ import WritePage from '../components/WritePage';
 class WritePageContainer extends Component {
   state = {
     comment: {
+      name: '',
       title: '',
       body: '',
     },
