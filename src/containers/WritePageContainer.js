@@ -53,7 +53,7 @@ class WritePageContainer extends Component {
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
     };
 
-    fetch('/api/comments/', options)
+    fetch('/api/comments', options)
       .then(res => res.json())
       .then(res => {
         if (res.status === 'success') {
