@@ -6,7 +6,8 @@ use iron::status;
 use router::Router;
 
 fn get_comments_handler(_: &mut Request) -> IronResult<Response> {
-    Ok(Response::with((status::Ok, "response")))
+    let response = "response";
+    Ok(Response::with((status::Ok, response)))
 }
 
 fn main() {
