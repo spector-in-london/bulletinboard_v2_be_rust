@@ -1,21 +1,54 @@
-extern crate iron;
-extern crate router;
+use actix_web::{web, HttpResponse, Result};
+use serde::{Deserialize, Serialize};
 
-use iron::prelude::*;
-use iron::status;
-use router::Router;
-
-fn get_comments_handler(_: &mut Request) -> IronResult<Response> {
-    let response = "response";
-    Ok(Response::with((status::Ok, response)))
+#[derive(Serialize, Deserialize)]
+struct Comment {
+    id: u32,
+    title: String,
+    name: String,
+    body: String,
 }
 
-fn main() {
-    let mut router = Router::new();
-    router.get("/api/comments", get_comments_handler, "index");
+#[derive(Serialize, Deserialize)]
+struct Comments {
+    comments: Vec<Comment>
+}
 
-    let address = "localhost:3001";
-    let _server = Iron::new(router).http(address).unwrap();
+#[derive(Serialize, Deserialize)]
+struct ApiResponse<T> {
+    status: String,
+    data: T,
+    message: String,
+}
 
-    println!("Running on http://{}", address);
+fn getCommentsHandler() -> Result<HttpResponse> {
+    let data = Comments{
+        comments: vec![Comment {
+            id: 1,
+            title: "Hello World".to_string(),
+            name: "Robert".to_string(),
+            body: "This is my first Rust server".to_string(),
+        }],
+    };
+
+    let response = ApiResponse::<Comments> {
+        status: "success".to_string(),
+        data: data,
+        message: "".to_string(),
+    };
+
+    Ok(HttpResponse::Ok().json(response))
+}
+
+pub fn main() {
+    use actix_web::{App, HttpServer};
+
+    HttpServer::new(|| {
+        App::new()
+            .route("/api/comments", web::get().to(getCommentsHandler))
+    })
+    .bind("127.0.0.1:8088")
+    .unwrap()
+    .run()
+    .unwrap();
 }
