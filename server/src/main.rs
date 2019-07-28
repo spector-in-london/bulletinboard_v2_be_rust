@@ -26,12 +26,7 @@ fn get_comments_handler() -> Result<HttpResponse> {
         }],
     };
 
-    let response = api::ApiResponse::<Comments> {
-        status: "success".to_string(),
-        data: data,
-        message: "".to_string(),
-    };
-
+    let response = api::ApiResponse::success(data);
     Ok(HttpResponse::Ok().json(response))
 }
 

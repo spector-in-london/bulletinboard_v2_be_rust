@@ -6,3 +6,13 @@ pub struct ApiResponse<T> {
     pub data: T,
     pub message: String,
 }
+
+impl<T> ApiResponse<T> {
+  pub fn success(data: T) -> ApiResponse<T> {
+    ApiResponse {
+      status: "success".to_string(),
+      data: data,
+      message: "".to_string(),
+    }
+  }
+}
