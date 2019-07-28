@@ -30,12 +30,32 @@ fn get_comments_handler() -> Result<HttpResponse> {
     Ok(HttpResponse::Ok().json(response))
 }
 
+#[derive(Serialize, Deserialize)]
+struct FormBody {
+    title: String,
+    name: String,
+    body: String,
+}
+
+fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> {
+    let data = Comment {
+        id: 1,
+        title: form.title.to_string(),
+        name: form.name.to_string(),
+        body: form.body.to_string(),
+    };
+
+    let response = api::ApiResponse::success(data);
+    Ok(HttpResponse::Ok().json(response))
+}
+
 pub fn main() {
     use actix_web::{App, HttpServer};
 
     HttpServer::new(|| {
         App::new()
             .route("/api/comments", web::get().to(get_comments_handler))
+            .route("/api/comments", web::post().to(post_comments_handler))
     })
     .bind("127.0.0.1:8088")
     .unwrap()
