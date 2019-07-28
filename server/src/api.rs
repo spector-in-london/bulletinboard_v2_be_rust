@@ -8,7 +8,7 @@ pub struct ApiResponse<T> {
 }
 
 impl<T> ApiResponse<T> {
-  pub fn success(data: T) -> ApiResponse<T> {
+  pub fn success(data: T) -> Self {
     ApiResponse {
       status: "success".to_string(),
       data: data,
