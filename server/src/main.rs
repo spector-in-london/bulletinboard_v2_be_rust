@@ -1,3 +1,5 @@
+mod api;
+
 use actix_web::{web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
 
@@ -14,14 +16,7 @@ struct Comments {
     comments: Vec<Comment>
 }
 
-#[derive(Serialize, Deserialize)]
-struct ApiResponse<T> {
-    status: String,
-    data: T,
-    message: String,
-}
-
-fn getCommentsHandler() -> Result<HttpResponse> {
+fn get_comments_handler() -> Result<HttpResponse> {
     let data = Comments{
         comments: vec![Comment {
             id: 1,
@@ -31,7 +26,7 @@ fn getCommentsHandler() -> Result<HttpResponse> {
         }],
     };
 
-    let response = ApiResponse::<Comments> {
+    let response = api::ApiResponse::<Comments> {
         status: "success".to_string(),
         data: data,
         message: "".to_string(),
@@ -45,7 +40,7 @@ pub fn main() {
 
     HttpServer::new(|| {
         App::new()
-            .route("/api/comments", web::get().to(getCommentsHandler))
+            .route("/api/comments", web::get().to(get_comments_handler))
     })
     .bind("127.0.0.1:8088")
     .unwrap()
