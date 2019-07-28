@@ -14,6 +14,10 @@ class WritePage extends Component {
         <InputField
           autofocus
           label='Your Name'
+          name='name'
+          onChange={onChange} />
+        <InputField
+          label='A Title for Your Comment'
           name='title'
           onChange={onChange} />
         <TextareaField
