@@ -57,7 +57,7 @@ pub fn main() {
             .route("/api/comments", web::get().to(get_comments_handler))
             .route("/api/comments", web::post().to(post_comments_handler))
     })
-    .bind("127.0.0.1:8088")
+    .bind("127.0.0.1:4000")
     .unwrap()
     .run()
     .unwrap();
