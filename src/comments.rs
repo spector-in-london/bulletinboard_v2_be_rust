@@ -18,12 +18,12 @@ struct Comments {
 
 pub fn get_comments_handler() -> Result<HttpResponse> {
     let data = Comments{
-        comments: vec![Comment {
-            id: 1,
-            title: "Hello World".to_string(),
-            name: "Robert".to_string(),
-            body: "This is my first Rust server".to_string(),
-        }],
+        comments: vec![
+            Comment { id: 1, title: "title1".to_string(), name: "name1".to_string(), body: "body1".to_string() },
+            Comment { id: 2, title: "title2".to_string(), name: "name2".to_string(), body: "body2".to_string() },
+            Comment { id: 3, title: "title3".to_string(), name: "name3".to_string(), body: "body3".to_string() },
+            Comment { id: 4, title: "title4".to_string(), name: "name4".to_string(), body: "body4".to_string() },
+        ],
     };
 
     let response = api::ApiResponse::success(data);
