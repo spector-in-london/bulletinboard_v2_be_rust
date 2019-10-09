@@ -50,6 +50,11 @@ pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> 
         body: form.body.to_string(),
     };
 
-    let response = api::ApiResponse::success(data);
-    Ok(HttpResponse::Ok().json(response))
+    if true {
+        let response = api::ApiResponse::success(data);
+        Ok(HttpResponse::Ok().json(response))
+    } else {
+        let response = api::ApiResponse::<()>::error();
+        Ok(HttpResponse::Ok().json(response))
+    }
 }
