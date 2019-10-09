@@ -13,7 +13,7 @@ struct Comment {
 
 #[derive(Serialize, Deserialize)]
 struct Comments {
-    comments: Vec<Comment>
+    comments: Vec<Comment>,
 }
 
 pub fn get_comments_handler() -> Result<HttpResponse> {
