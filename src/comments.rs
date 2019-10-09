@@ -26,8 +26,13 @@ pub fn get_comments_handler() -> Result<HttpResponse> {
         ],
     };
 
-    let response = api::ApiResponse::success(data);
-    Ok(HttpResponse::Ok().json(response))
+    if true {
+        let response = api::ApiResponse::success(data);
+        Ok(HttpResponse::Ok().json(response))
+    } else {
+        let response = api::ApiResponse::<()>::error();
+        Ok(HttpResponse::Ok().json(response))
+    }
 }
 
 #[derive(Serialize, Deserialize)]
