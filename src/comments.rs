@@ -47,6 +47,15 @@ pub struct FormBody {
     body: String,
 }
 
+fn post_comments() -> Comment {
+    Comment {
+        id: 1,
+        title: "title".to_string(),
+        name: "name".to_string(),
+        body: "body".to_string(),
+    }
+}
+
 pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> {
     let data = Comment {
         id: 1,
@@ -55,6 +64,7 @@ pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> 
         body: form.body.to_string(),
     };
 
+    post_comments();
     // TODO: implement properly
     if true {
         let response = api::ApiResponse::success(data);
