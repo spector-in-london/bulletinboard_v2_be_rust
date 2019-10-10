@@ -26,6 +26,7 @@ pub fn get_comments_handler() -> Result<HttpResponse> {
         ],
     };
 
+    // TODO: implement properly
     if true {
         let response = api::ApiResponse::success(data);
         Ok(HttpResponse::Ok().json(response))
@@ -50,6 +51,7 @@ pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> 
         body: form.body.to_string(),
     };
 
+    // TODO: implement properly
     if true {
         let response = api::ApiResponse::success(data);
         Ok(HttpResponse::Ok().json(response))
