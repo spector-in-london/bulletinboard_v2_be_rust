@@ -45,13 +45,15 @@ pub struct FormBody {
     body: String,
 }
 
-fn post_comments() -> Comment {
-    Comment {
+fn post_comments() -> Result<Comment> {
+    let comment = Comment {
         id: 1,
         title: "title".to_string(),
         name: "name".to_string(),
         body: "body".to_string(),
-    }
+    };
+
+    Ok(comment)
 }
 
 pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> {
@@ -62,13 +64,11 @@ pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> 
         body: form.body.to_string(),
     };
 
-    post_comments();
-    // TODO: implement properly
-    if true {
-        let response = api::ApiResponse::success(data);
-        Ok(HttpResponse::Ok().json(response))
-    } else {
-        let response = api::ApiResponse::<()>::error();
-        Ok(HttpResponse::Ok().json(response))
-    }
+    // TODO: remove drop of data and replace with model response
+    let response = match post_comments() {
+        Ok(_data) => api::ApiResponse::success(data),
+        Err(_err) =>api::ApiResponse::error(),
+    };
+
+    Ok(HttpResponse::Ok().json(response))
 }
