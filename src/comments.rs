@@ -6,7 +6,6 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 struct Comment {
-    id: u32,
     title: String,
     name: String,
     body: String,
@@ -43,7 +42,6 @@ pub struct FormBody {
 
 fn post_comments() -> Result<Comment> {
     let comment = Comment {
-        id: 1,
         title: "title".to_string(),
         name: "name".to_string(),
         body: "body".to_string(),
@@ -54,7 +52,6 @@ fn post_comments() -> Result<Comment> {
 
 pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> {
     let data = Comment {
-        id: 1,
         title: form.title.to_string(),
         name: form.name.to_string(),
         body: form.body.to_string(),
