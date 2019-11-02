@@ -1,4 +1,5 @@
 use crate::api;
+use crate::model;
 
 use actix_web::{web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
@@ -13,17 +14,12 @@ struct Comment {
 
 #[derive(Serialize, Deserialize)]
 struct Comments {
-    comments: Vec<Comment>,
+    comments: Vec<model::Comment>,
 }
 
 fn get_comments() -> Result<Comments> {
     let comments = Comments{
-        comments: vec![
-            Comment { id: 1, title: "title1".to_string(), name: "name1".to_string(), body: "body1".to_string() },
-            Comment { id: 2, title: "title2".to_string(), name: "name2".to_string(), body: "body2".to_string() },
-            Comment { id: 3, title: "title3".to_string(), name: "name3".to_string(), body: "body3".to_string() },
-            Comment { id: 4, title: "title4".to_string(), name: "name4".to_string(), body: "body4".to_string() },
-        ],
+        comments: model::get_comments(),
     };
 
     Ok(comments)
