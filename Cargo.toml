@@ -6,4 +6,5 @@ edition = "2018"
 
 [dependencies]
 actix-web = "1.0"
+postgres = "0.15"
 serde = "1.0.97"
