@@ -1,5 +1,8 @@
+extern crate postgres;
+
 mod api;
 mod comments;
+mod model;
 
 use actix_web::{web};
 
