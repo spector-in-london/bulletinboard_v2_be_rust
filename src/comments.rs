@@ -5,13 +5,6 @@ use actix_web::{web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
-struct Comment {
-    title: String,
-    name: String,
-    body: String,
-}
-
-#[derive(Serialize, Deserialize)]
 struct Comments {
     comments: Vec<model::Comment>,
 }
@@ -40,29 +33,23 @@ pub struct FormBody {
     body: String,
 }
 
-fn post_comments() -> Result<model::Comment> {
-    let comment = model::Comment {
-        id: None,
-        title: "title".to_string(),
-        name: "name".to_string(),
-        body: "body".to_string(),
-        avatar: "bunny".to_string(),
-    };
-
+fn post_comments(comment: model::Comment) -> Result<model::Comment> {
     let response = model::create_comment(comment);
+
     Ok(response)
 }
 
 pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> {
-    let data = Comment {
+    let comment = model::Comment {
+        id: None,
         title: form.title.to_string(),
         name: form.name.to_string(),
         body: form.body.to_string(),
+        avatar: "bunny".to_string(),
     };
 
-    // TODO: remove drop of data and replace with model response
-    let response = match post_comments() {
-        Ok(_data) => api::ApiResponse::success(data),
+    let response = match post_comments(comment) {
+        Ok(data) => api::ApiResponse::success(data),
         Err(_err) =>api::ApiResponse::error(),
     };
 
