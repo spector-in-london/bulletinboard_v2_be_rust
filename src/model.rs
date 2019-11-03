@@ -5,11 +5,11 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Comment {
-    id: i32,
-    title: String,
-    name: String,
-    avatar: String,
-    body: String,
+    pub id: Option<i32>,
+    pub title: String,
+    pub name: String,
+    pub avatar: String,
+    pub body: String,
 }
 
 pub fn get_comments() -> Vec<Comment> {
