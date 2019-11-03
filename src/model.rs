@@ -35,7 +35,9 @@ pub fn get_comments() -> Vec<Comment> {
     return comments;
 }
 
-pub fn create_comment() {
+pub fn create_comment(comment: Comment) -> Comment {
     let sql = "INSERT INTO posts (name, title, body, avatar) VALUES ()";
     println!("{}", sql);
+
+    return comment;
 }
