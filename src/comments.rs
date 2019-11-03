@@ -40,14 +40,17 @@ pub struct FormBody {
     body: String,
 }
 
-fn post_comments() -> Result<Comment> {
-    let comment = Comment {
+fn post_comments() -> Result<model::Comment> {
+    let comment = model::Comment {
+        id: None,
         title: "title".to_string(),
         name: "name".to_string(),
         body: "body".to_string(),
+        avatar: "bunny".to_string(),
     };
 
-    Ok(comment)
+    let response = model::create_comment(comment);
+    Ok(response)
 }
 
 pub fn post_comments_handler(form: web::Json<FormBody>) -> Result<HttpResponse> {
