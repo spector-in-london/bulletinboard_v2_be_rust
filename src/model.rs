@@ -12,6 +12,11 @@ pub struct Comment {
     pub body: String,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct Comments {
+    pub comments: Vec<Comment>
+}
+
 pub fn get_comments() -> Vec<Comment> {
     let sql = "SELECT * FROM posts";
 

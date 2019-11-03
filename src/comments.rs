@@ -4,13 +4,8 @@ use crate::model;
 use actix_web::{web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
-struct Comments {
-    comments: Vec<model::Comment>,
-}
-
-fn get_comments() -> Result<Comments> {
-    let comments = Comments{
+fn get_comments() -> Result<model::Comments> {
+    let comments = model::Comments{
         comments: model::get_comments(),
     };
 
