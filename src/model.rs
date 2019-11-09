@@ -61,7 +61,13 @@ pub fn get_comments(offset: Option<String>, sort: Option<String>) -> Vec<Comment
 }
 
 pub fn create_comment(comment: Comment) -> Comment {
-    let sql = "INSERT INTO posts (name, title, body, avatar) VALUES ()";
+    let sql = format!(
+        "INSERT INTO posts (name, title, body, avatar) VALUES ({}, {}, {}, {})",
+        name = "name",
+        title = "title",
+        body = "body",
+        avater = "bunny",
+    );
     println!("{}", sql);
 
     return comment;
