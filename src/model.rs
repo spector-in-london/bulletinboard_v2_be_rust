@@ -17,7 +17,22 @@ pub struct Comments {
     pub comments: Vec<Comment>
 }
 
-pub fn get_comments() -> Vec<Comment> {
+pub fn get_comments(offset: Option<String>, sort: Option<String>) -> Vec<Comment> {
+    let offset_number: i32 = match offset {
+        Some(n) => n.parse::<i32>().unwrap_or(0),
+        None => 0,
+    };
+
+    let sort_direction: String = match sort {
+        Some(ref s) => match &s[..] {
+            "asc" => "asc".to_string(),
+            _ => "desc".to_string(),
+        },
+        None => "desc".to_string(),
+    };
+
+    println!("{:?} {:?}", offset_number, sort_direction);
+
     let sql = "SELECT * FROM posts";
 
     let conn = match Connection::connect("postgres://robertschaap@localhost/bulletinboard", TlsMode::None) {
