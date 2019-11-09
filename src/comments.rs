@@ -4,16 +4,22 @@ use crate::model;
 use actix_web::{web, HttpResponse, Result};
 use serde::{Deserialize, Serialize};
 
-fn get_comments() -> Result<model::Comments> {
+#[derive(Deserialize)]
+pub struct QueryParams {
+    offset: Option<String>,
+    sort: Option<String>,
+}
+
+fn get_comments(params: QueryParams) -> Result<model::Comments> {
     let comments = model::Comments{
-        comments: model::get_comments(),
+        comments: model::get_comments(params.offset, params.sort),
     };
 
     Ok(comments)
 }
 
-pub fn get_comments_handler() -> Result<HttpResponse> {
-    let response = match get_comments() {
+pub fn get_comments_handler(info: web::Query<QueryParams>) -> Result<HttpResponse> {
+    let response = match get_comments(info.into_inner()) {
         Ok(data) => api::ApiResponse::success(data),
         Err(_err) => api::ApiResponse::error(),
     };
