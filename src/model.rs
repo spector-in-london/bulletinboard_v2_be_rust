@@ -31,7 +31,10 @@ pub fn get_comments(offset: Option<String>, sort: Option<String>) -> Vec<Comment
         None => "desc".to_string(),
     };
 
-    println!("{:?} {:?}", offset_number, sort_direction);
+    let conn = match Connection::connect("postgres://robertschaap@localhost/bulletinboard", TlsMode::None) {
+        Ok(r) => r,
+        Err(_) => return Vec::new(),
+    };
 
     let sql = format!(
         "SELECT * FROM posts LIMIT={limit} OFFSET={offset} SORT={sort}",
@@ -39,11 +42,6 @@ pub fn get_comments(offset: Option<String>, sort: Option<String>) -> Vec<Comment
         offset = offset_number,
         sort = sort_direction,
     );
-
-    let conn = match Connection::connect("postgres://robertschaap@localhost/bulletinboard", TlsMode::None) {
-        Ok(r) => r,
-        Err(_) => return Vec::new(),
-    };
 
     let mut comments: Vec<Comment> = Vec::new();
 
