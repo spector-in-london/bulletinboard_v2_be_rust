@@ -59,14 +59,27 @@ pub fn get_comments(offset: Option<String>, sort: Option<String>) -> Vec<Comment
 }
 
 pub fn create_comment(comment: Comment) -> Comment {
-    let sql = format!(
-        "INSERT INTO posts (name, title, body, avatar) VALUES ({}, {}, {}, {})",
-        name = "name",
-        title = "title",
-        body = "body",
-        avater = "bunny",
-    );
-    println!("{}", sql);
+    let conn = match Connection::connect("postgres://robertschaap@localhost/bulletinboard", TlsMode::None) {
+        Ok(r) => r,
+        Err(_) => return Comment {
+            id: Some(1),
+            title: "".to_string(),
+            name: "".to_string(),
+            body: "".to_string(),
+            avatar: "".to_string(),
+        },
+    };
+
+    let sql = "INSERT INTO posts (name, title, body, avatar) VALUES ($1, $2, $3, $4)";
+
+    let result = conn.execute(sql, &[
+        &"name",
+        &"title",
+        &"body",
+        &"avatar",
+    ]).unwrap();
+
+    println!("{}", result);
 
     return comment;
 }
