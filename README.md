@@ -2,7 +2,7 @@
 A simple bulletin board where you can leave a message and which is populated dynamically from a database with pagination.
 
 ##### Technologies
-Rust | Actix-Web
+Rust | Actix-Web | Postgres
 
 ### Scope
 ##### What it was designed to do
@@ -13,7 +13,7 @@ Rust | Actix-Web
 - Upload a picture of your own
 
 ### Installation Notes
-Please feel free to download or clone the repository. Make sure you have SQL Alchemy and Invoke installed.
+Please feel free to download or clone the repository.
 
 To run:
 - From project root
